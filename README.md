@@ -30,7 +30,7 @@ docker-compose.yml
 
 ### Development
 
-Start both backend and frontend with Docker Compose:
+Start both backend and frontend with Docker Compose (make sure in root dir):
 
 ```bash
 docker-compose up --build
