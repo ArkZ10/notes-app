@@ -1,4 +1,4 @@
-# Notes App Monorepo
+# Notes App
 
 This repository contains a full-stack notes application with a Go backend and a Next.js frontend.
 
