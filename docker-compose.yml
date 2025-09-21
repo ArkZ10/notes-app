@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: notes_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: notesuser
+      POSTGRES_PASSWORD: notessecret
+      POSTGRES_DB: notesdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./notes-backend
+    container_name: notes_backend
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: notesuser
+      DB_PASSWORD: notessecret
+      DB_NAME: notesdb
+    depends_on:
+      - db
+    volumes:
+      - ./notes-backend/uploads:/app/uploads
+
+  frontend:
+    build: ./notes-frontend
+    container_name: notes_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
