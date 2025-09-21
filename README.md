@@ -14,13 +14,11 @@ docker-compose.yml
 
 - Built with Go.
 - Provides RESTful APIs for notes, users, categories, authentication, and image uploads.
-- See [`notes-backend/README.md`](notes-backend/README.md) for backend-specific instructions.
 
 ### Frontend (`notes-frontend`)
 
 - Built with Next.js.
 - Uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) for optimized font loading.
-- See [`notes-frontend/README.md`](notes-frontend/README.md) for frontend-specific instructions.
 
 ## Getting Started
 
