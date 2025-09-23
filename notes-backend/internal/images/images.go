@@ -34,7 +34,6 @@ func UploadImageHandler(db *sql.DB) gin.HandlerFunc {
 			return
 		}
 
-		// Parse file from form-data (key = "image")
 		file, err := c.FormFile("image")
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Image file is required"})
@@ -48,7 +47,7 @@ func UploadImageHandler(db *sql.DB) gin.HandlerFunc {
 			return
 		}
 
-		baseURL := "http://localhost:8080/" // later replace with domain
+		baseURL := "http://localhost:8080/"
 		fileURL := baseURL + filename
 
 		// Insert into images table

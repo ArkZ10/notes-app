@@ -41,7 +41,6 @@ func LoggingMiddleware(db *sql.DB) gin.HandlerFunc {
 		// Calculate duration
 		duration := time.Since(start)
 
-		// ✅ Insert log asynchronously
 		go func() {
 			_, err := db.Exec(
 				`INSERT INTO logs (method, endpoint, request_headers, request_body, response_body, status_code, created_at)
@@ -74,10 +73,15 @@ func bytesToJSON(b []byte) []byte {
 	if len(b) == 0 {
 		return []byte("null")
 	}
-	var js json.RawMessage
-	if err := json.Unmarshal(b, &js); err != nil {
-		return []byte(`"` + string(b) + `"`)
+
+	// Ensure valid UTF-8
+	if !json.Valid(b) {
+		// If it's not valid JSON, wrap it as a string
+		safe := string(b)
+		sanitized, _ := json.Marshal(safe)
+		return sanitized
 	}
+
 	return b
 }
 
